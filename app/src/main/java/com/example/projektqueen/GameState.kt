@@ -1,4 +1,5 @@
 package com.example.projektqueen
 
-class GameState {
+class GameState(fen : String) {
+    
 }
