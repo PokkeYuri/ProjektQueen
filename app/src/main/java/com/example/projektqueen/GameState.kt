@@ -1,8 +1,22 @@
 package com.example.projektqueen
 
+import android.util.Log
+
+
 
 class GameState(fen : String = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1") {
-    var pieces = fenToPieces(fen)
+    private val where = "GameState"
+    init {
+        Log.i(where, "created GameState with fen: $fen")
+    }
+    private var boardFen = getBoardFen(fen)
+    private var stateFen = getStateFen(fen)
+    private var pieces = fenToPieces(fen)
+
+    // getter method for pieces
+    fun getPieces() : MutableList<Any> {
+        return pieces
+    }
     // returns MutableList with pieces from fen
     private fun fenToPieces(fen : String) : MutableList<Any> {
         var boardFen = getBoardFen(fen)
@@ -18,67 +32,68 @@ class GameState(fen : String = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQ
                     col = 1
                 }
                 'K' -> {
-                    var piece = Piece.King(row, col, 'w')
+                    val piece = Piece.King(row, col, 'w')
                     pieces.add(piece)
                 }
                 'k' -> {
-                    var piece = Piece.King(row, col, 'b')
+                    val piece = Piece.King(row, col, 'b')
                     pieces.add(piece)
                 }
                 'Q' -> {
-                    var piece = Piece.Queen(row, col, 'w')
+                    val piece = Piece.Queen(row, col, 'w')
                     pieces.add(piece)
                 }
                 'q' -> {
-                    var piece = Piece.Queen(row, col, 'b')
+                    val piece = Piece.Queen(row, col, 'b')
                     pieces.add(piece)
                 }
                 'R' -> {
-                    var piece = Piece.Rook(row, col, 'w')
+                    val piece = Piece.Rook(row, col, 'w')
                     pieces.add(piece)
                 }
                 'r' -> {
-                    var piece = Piece.Rook(row, col, 'b')
+                    val piece = Piece.Rook(row, col, 'b')
                     pieces.add(piece)
                 }
                 'N' -> {
-                    var piece = Piece.Knight(row, col, 'w')
+                    val piece = Piece.Knight(row, col, 'w')
                     pieces.add(piece)
                 }
                 'n' -> {
-                    var piece = Piece.Knight(row, col, 'b')
+                    val piece = Piece.Knight(row, col, 'b')
                     pieces.add(piece)
                 }
                 'B' -> {
-                    var piece = Piece.Bishop(row, col, 'w')
+                    val piece = Piece.Bishop(row, col, 'w')
                     pieces.add(piece)
                 }
                 'b' -> {
-                    var piece = Piece.Bishop(row, col, 'b')
+                    val piece = Piece.Bishop(row, col, 'b')
                     pieces.add(piece)
                 }
                 'P' -> {
-                    var piece = Piece.Pawn(row, col, 'w')
+                    val piece = Piece.Pawn(row, col, 'w')
                     pieces.add(piece)
                 }
                 'p' -> {
-                    var piece = Piece.Pawn(row, col, 'b')
+                    val piece = Piece.Pawn(row, col, 'b')
                     pieces.add(piece)
                 }
             }
         return pieces
     }
-    // returns just the Board part from the fen notation
+    /*
+        next two functions will cut the fen in two pieces:
+        the "boardFen" -> "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
+        and the "stateFen" -> "w KQkq - 0 1"
+    */
+    // returns just the Board part from the fen notation ("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR")
     private fun getBoardFen(fen : String) : String {
         return fen.split(' ')[0]
     }
-    // returns the state part from the fen
+    // returns the state part from the fen ("w KQkq - 0 1")
     private fun getStateFen(fen : String) : String {
-        for (c in fen) {
-            if (c == ' ') {
-                var pos = fen.find(' ')
-            }
-        }
+        return fen.split(' ', limit = 2)[1]
     }
 
 
