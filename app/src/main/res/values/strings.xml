@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ProjektQueen</string>
+    <string name="white_to_move">White to move</string>
+    <string name="black_to_move">Black to move</string>
 </resources>
